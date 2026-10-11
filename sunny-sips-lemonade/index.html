@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffe45c">
+  <meta name="description" content="Meet Sunny Sips Lemonade: a cheerful neighborhood lemonade stand. Explore our classic and strawberry lemonade menu and sample visit details.">
+  <title>Sunny Sips Lemonade | A little sunshine in every sip</title>
+  <style>
+    :root {
+      --lemon: #ffe45c;
+      --cream: #fff9e8;
+      --green: #173c2c;
+      --white: #ffffff;
+      --berry: #a92f50;
+      --gold: #806000;
+      --border: rgba(23, 60, 44, .18);
+      --radius: 1.5rem;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-padding-top: 1.5rem; }
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--green);
+      font-family: ui-rounded, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 1rem;
+      line-height: 1.65;
+      overflow-wrap: anywhere;
+    }
+    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3 { line-height: 1.12; text-wrap: balance; }
+    h1 { font-size: clamp(2.65rem, 7vw, 5.5rem); letter-spacing: -.055em; }
+    h2 { font-size: clamp(2rem, 4.5vw, 3rem); letter-spacing: -.04em; }
+    h3 { font-size: 1.5rem; letter-spacing: -.025em; }
+    a { color: inherit; text-underline-offset: .25em; }
+    svg { display: block; max-width: 100%; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    :focus-visible {
+      outline: 3px solid var(--berry);
+      outline-offset: 5px;
+    }
+    .container { width: min(1120px, calc(100% - 2.5rem)); margin-inline: auto; }
+    .section { padding-block: clamp(3.5rem, 7vw, 6rem); }
+    .card { border: 1px solid var(--border); border-radius: var(--radius); background: var(--white); padding: clamp(1.5rem, 4vw, 2.5rem); }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .8rem;
+      min-height: 52px;
+      padding: .85rem 1.5rem;
+      border: 2px solid var(--green);
+      border-radius: 999px;
+      background: var(--green);
+      color: var(--white);
+      font-weight: 750;
+      text-decoration: none;
+      text-align: center;
+      transition: background .18s ease, transform .18s ease;
+    }
+    .button:hover { background: #25583f; transform: translateY(-2px); }
+    .eyebrow {
+      display: block;
+      margin-bottom: .9rem;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    .skip-link {
+      position: absolute;
+      top: .75rem;
+      left: .75rem;
+      z-index: 10;
+      padding: .75rem 1rem;
+      border-radius: .5rem;
+      color: var(--white);
+      background: var(--green);
+      transform: translateY(-200%);
+    }
+    .skip-link:focus { transform: translateY(0); }
+    .site-header { background: var(--lemon); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 2rem; padding-block: 1rem; }
+    .brand { display: inline-flex; align-items: center; gap: .6rem; font-size: 1.25rem; font-weight: 850; text-decoration: none; }
+    .brand svg { width: 38px; height: 38px; flex-shrink: 0; }
+    nav ul { display: flex; flex-wrap: wrap; gap: .2rem .7rem; list-style: none; margin: 0; padding: 0; }
+    nav a { display: block; padding: .6rem .65rem; border-radius: .5rem; font-size: .95rem; font-weight: 700; text-decoration: none; }
+    nav a:hover { background: rgba(255,255,255,.45); text-decoration: underline; }
+    .hero { background: var(--lemon); padding-block: clamp(3rem, 6vw, 5.5rem); }
+    .hero-grid { display: grid; align-items: center; gap: 2.5rem; }
+    .hero-copy { max-width: 620px; }
+    .hero-copy p { max-width: 450px; margin-top: 1.5rem; font-size: 1.15rem; }
+    .hero-copy .button { margin-top: 2rem; }
+    .hero-footnote { display: flex; align-items: center; gap: .5rem; margin-top: 1.25rem; font-size: .9rem; font-weight: 650; }
+    .hero-footnote::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+    .hero-art { width: min(100%, 460px); justify-self: center; }
+    .hero-art svg { width: 100%; height: auto; }
+    .section-heading { margin-bottom: 2rem; }
+    .section-heading p { max-width: 550px; margin-top: 1rem; }
+    .sample-notice {
+      display: flex;
+      align-items: flex-start;
+      gap: .85rem;
+      margin-bottom: 2rem;
+      padding: 1rem 1.25rem;
+      border: 1px solid var(--gold);
+      border-radius: 1rem;
+      background: #fff3ba;
+      font-size: .95rem;
+    }
+    .sample-notice svg { width: 22px; height: 22px; flex-shrink: 0; margin-top: .2rem; }
+    .menu-grid { display: grid; gap: 1.25rem; }
+    .menu-card { position: relative; display: flex; flex-direction: column; gap: 1rem; }
+    .menu-card.classic { background: #fff4b6; }
+    .menu-card.strawberry { background: #fff0f3; }
+    .menu-icon { width: 76px; height: 76px; margin-bottom: .5rem; }
+    .menu-card p { max-width: 390px; }
+    .menu-card .flavor-label { font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .strawberry .flavor-label { color: var(--berry); }
+    .price-row { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1rem; border-top: 1px solid var(--border); padding-top: 1.25rem; margin-top: auto; }
+    .serving { font-size: .95rem; }
+    .serving strong { display: block; }
+    .price { text-align: right; }
+    .price strong { display: block; font-size: 2rem; line-height: 1.2; letter-spacing: -.04em; }
+    .price span { font-size: .8rem; font-weight: 650; }
+    .menu-note { margin-top: 1.25rem; font-size: .9rem; }
+    .story-section { background: var(--green); color: var(--cream); }
+    .story-grid { display: grid; gap: 2rem; align-items: center; }
+    .story-copy p { margin-top: 1.25rem; max-width: 590px; }
+    .fresh-card { background: var(--lemon); color: var(--green); border: none; }
+    .fresh-card svg { width: 100px; height: 72px; margin-bottom: 1.5rem; }
+    .fresh-card p { margin-top: 1rem; }
+    .visit-grid { display: grid; gap: 1.25rem; }
+    .visit-card .eyebrow { color: var(--gold); }
+    .visit-card p { margin-top: 1rem; }
+    .hours { margin: 1.5rem 0 0; }
+    .hours div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .4rem 1rem; padding-block: .8rem; border-top: 1px solid var(--border); }
+    .hours dt { font-weight: 700; }
+    .hours dd { margin: 0; }
+    address { margin-top: 1.5rem; font-style: normal; font-size: 1.15rem; }
+    address strong { display: block; }
+    .small-note { font-size: .9rem; }
+    .site-footer { padding-block: 2rem; background: var(--lemon); border-top: 1px solid var(--border); }
+    .footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; }
+    .footer-inner strong { font-size: 1.1rem; }
+    .footer-inner p { font-size: .9rem; margin-top: .25rem; }
+    .footer-inner a { padding-block: .6rem; font-weight: 700; }
+    @media (min-width: 720px) {
+      .hero-grid { grid-template-columns: 1.2fr 1fr; }
+      .menu-grid, .visit-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .story-grid { grid-template-columns: 1.3fr 1fr; gap: 4rem; }
+    }
+    @media (max-width: 400px) {
+      .container { width: calc(100% - 2rem); }
+      .header-inner { justify-content: center; }
+      .hero-art { max-width: 290px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto !important; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Sunny Sips Lemonade, back to top">
+        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <path d="M10 32C3 22 13 9 28 12L38 8 37 19C42 32 23 44 13 36Z" fill="#fff9e8" stroke="#173c2c" stroke-width="2"/>
+          <path d="M28 12C29 3 40 2 43 4 39 12 34 14 28 12Z" fill="#173c2c"/>
+          <path d="M15 26C16 21 20 18 24 18" fill="none" stroke="#806000" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Sunny Sips<span class="sr-brand"></span>
+      </a>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#story">Our story</a></li>
+          <li><a href="#visit">Visit us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Sunny Sips Lemonade · Your neighborhood stand</span>
+          <h1 id="hero-title">A little sunshine.<br>A whole lot of sip.</h1>
+          <p>Freshly squeezed lemonade, friendly hellos, and a sweet little reason to take the scenic route around the block.</p>
+          <a class="button" href="#menu">See the Menu <span aria-hidden="true">↗</span></a>
+          <div class="hero-footnote">Good lemons. Good company.</div>
+        </div>
+
+        <div class="hero-art">
+          <svg viewBox="0 0 460 430" aria-hidden="true" focusable="false">
+            <circle cx="230" cy="211" r="180" fill="#fff9e8"/>
+            <g fill="none" stroke="#806000" stroke-width="3" stroke-linecap="round">
+              <path d="M63 77l-8-12m35 0 3-15M370 97l15-8m-7 35 17 2M76 266l-16 6"/>
+            </g>
+            <ellipse cx="241" cy="369" rx="127" ry="16" fill="#173c2c" opacity=".12"/>
+            <path d="M280 63l-29 133" fill="none" stroke="#173c2c" stroke-width="14" stroke-linecap="round"/>
+            <path d="M280 63l-29 133" fill="none" stroke="#fff9e8" stroke-width="5" stroke-linecap="round"/>
+            <path d="M149 140h173l-20 211c-1 12-9 18-20 18h-93c-11 0-19-6-20-18Z" fill="#ffffff" stroke="#173c2c" stroke-width="4"/>
+            <path d="M158 190h155l-15 157c-1 9-5 14-15 14h-94c-9 0-14-5-15-14Z" fill="#ffe45c"/>
+            <path d="M158 190q38-12 77 0t78 0" fill="none" stroke="#806000" stroke-width="2"/>
+            <g fill="#fff9e8" stroke="#ffffff" stroke-width="3">
+              <rect x="182" y="173" width="34" height="34" rx="7" transform="rotate(-12 199 190)"/>
+              <rect x="252" y="183" width="34" height="34" rx="7" transform="rotate(16 269 200)"/>
+              <rect x="216" y="217" width="32" height="32" rx="7" transform="rotate(-8 232 233)"/>
+            </g>
+            <path d="M183 245l7 87" stroke="#fff9e8" stroke-width="7" stroke-linecap="round"/>
+            <circle cx="242" cy="295" r="30" fill="#fff9e8"/>
+            <path d="M226 300q-8-12 4-21t22 2l7 2-3 6q0 17-20 18Z" fill="#ffe45c" stroke="#806000" stroke-width="2"/>
+            <path d="M246 279q0-12 14-9-2 11-14 9Z" fill="#173c2c"/>
+            <g transform="translate(92 119) rotate(-23)">
+              <path d="M-48 0a48 48 0 0 1 96 0Z" fill="#ffe45c" stroke="#173c2c" stroke-width="3"/>
+              <path d="M-38-3a38 38 0 0 1 76 0Z" fill="#fff9e8"/>
+              <path d="M-30-6a30 30 0 0 1 60 0Z" fill="#ffe45c"/>
+              <path d="M0-5v-28M0-5l-23-18M0-5l23-18" stroke="#fff9e8" stroke-width="3"/>
+            </g>
+            <g transform="translate(335 325) rotate(-17)">
+              <path d="M-46 0C-47-25-20-40 7-29l13-4 3 12C49 5 15 36-16 25l-14 3-3-12Z" fill="#ffe45c" stroke="#173c2c" stroke-width="3"/>
+              <path d="M13-28C18-51 40-54 47-47 42-30 26-23 13-28Z" fill="#173c2c"/>
+              <path d="M-29-4q2-12 14-15" fill="none" stroke="#fff9e8" stroke-width="5" stroke-linecap="round"/>
+            </g>
+            <path d="M109 318l4 10 10 4-10 4-4 10-4-10-10-4 10-4Z" fill="#173c2c"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="menu" aria-labelledby="menu-title">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Pick your sunshine</span>
+          <h2 id="menu-title">Small menu. Big smiles.</h2>
+          <p>A classic favorite or a berry-bright twist. Either way, there’s a little summer in your cup.</p>
+        </div>
+
+        <aside class="sample-notice" aria-label="Important sample information">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="10"/><path d="M12 11v6M12 7v1"/>
+          </svg>
+          <p><strong>Sample details — replace before publishing.</strong> All prices, serving sizes, opening hours, and the neighborhood location below are examples, not confirmed stand information.</p>
+        </aside>
+
+        <div class="menu-grid">
+          <article class="card menu-card classic" aria-labelledby="classic-title">
+            <svg class="menu-icon" viewBox="0 0 80 80" aria-hidden="true" focusable="false">
+              <circle cx="40" cy="40" r="38" fill="#ffe45c"/>
+              <path d="M18 48C11 31 32 15 49 24l10-3-1 11c12 18-13 35-29 27l-9 2Z" fill="#fff9e8" stroke="#173c2c" stroke-width="2"/>
+              <path d="M48 24q2-17 19-14-3 15-19 14Z" fill="#173c2c"/>
+              <path d="M25 39q3-8 11-10" fill="none" stroke="#806000" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="flavor-label">The original sunny sip</span>
+            <h3 id="classic-title">Classic Lemonade</h3>
+            <p>Freshly squeezed lemons, water, and sugar. Bright, tangy, and just the right kind of sweet.</p>
+            <div class="price-row">
+              <div class="serving"><strong>12 fl oz cup</strong>Example serving size</div>
+              <div class="price"><strong>$3.00</strong><span>Sample price · USD</span></div>
+            </div>
+          </article>
+
+          <article class="card menu-card strawberry" aria-labelledby="strawberry-title">
+            <svg class="menu-icon" viewBox="0 0 80 80" aria-hidden="true" focusable="false">
+              <circle cx="40" cy="40" r="38" fill="#f8d7df"/>
+              <path d="M20 30C23 18 36 24 40 27 47 20 58 21 61 31c4 15-14 34-21 35-7-1-25-21-20-36Z" fill="#a92f50" stroke="#173c2c" stroke-width="2"/>
+              <path d="M40 29l-13-9 11 1 4-11 4 11 12-2-13 11Z" fill="#173c2c"/>
+              <g fill="#fff9e8">
+                <ellipse cx="29" cy="36" rx="1.5" ry="2.5"/><ellipse cx="43" cy="37" rx="1.5" ry="2.5"/>
+                <ellipse cx="54" cy="35" rx="1.5" ry="2.5"/><ellipse cx="35" cy="47" rx="1.5" ry="2.5"/>
+                <ellipse cx="48" cy="47" rx="1.5" ry="2.5"/><ellipse cx="40" cy="57" rx="1.5" ry="2.5"/>
+              </g>
+            </svg>
+            <span class="flavor-label">A berry happy twist</span>
+            <h3 id="strawberry-title">Strawberry Lemonade</h3>
+            <p>Our freshly squeezed classic with a splash of strawberry sweetness. Pink, playful, and full of flavor.</p>
+            <div class="price-row">
+              <div class="serving"><strong>12 fl oz cup</strong>Example serving size</div>
+              <div class="price"><strong>$4.00</strong><span>Sample price · USD</span></div>
+            </div>
+          </article>
+        </div>
+        <p class="menu-note">Planning a visit? Check the <a href="#visit">sample hours and location</a> below.</p>
+      </div>
+    </section>
+
+    <section class="section story-section" id="story" aria-labelledby="story-title">
+      <div class="container story-grid">
+        <div class="story-copy">
+          <span class="eyebrow">A stand with a neighborhood heart</span>
+          <h2 id="story-title">Made for the people<br>around the block.</h2>
+          <p>Sunny Sips is about the simple stuff: a pitcher of lemonade, a friendly wave, and a place to pause on your neighborhood walk.</p>
+          <p>Whether you’re catching up with a neighbor or taking the long way home, you’re welcome here. Pull up for a sip and bring a little sunshine to your day.</p>
+        </div>
+        <aside class="card fresh-card" aria-labelledby="fresh-title">
+          <svg viewBox="0 0 100 72" aria-hidden="true" focusable="false">
+            <path d="M10 48a39 39 0 0 1 78 0Z" fill="#fff9e8" stroke="#173c2c" stroke-width="2.5"/>
+            <path d="M19 44a30 30 0 0 1 60 0Z" fill="#ffe45c" stroke="#806000" stroke-width="1.5"/>
+            <path d="M49 43V17M49 43L28 24M49 43l21-19" stroke="#fff9e8" stroke-width="3"/>
+            <path d="M75 14q0-13 18-12-3 14-18 12Z" fill="#173c2c"/>
+          </svg>
+          <span class="eyebrow">Fresh is our favorite flavor</span>
+          <h3 id="fresh-title">Real lemons.<br>Freshly squeezed.</h3>
+          <p>That unmistakable lemon zing starts with freshly squeezed juice. We keep it simple and let the bright, sweet-tart flavor do the talking.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="visit" aria-labelledby="visit-title">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Make it a lemonade kind of day</span>
+          <h2 id="visit-title">See you around the block.</h2>
+          <p>Here’s an example of where and when to find the stand. Replace these details with confirmed information before sharing this site.</p>
+        </div>
+
+        <div class="visit-grid">
+          <article class="card visit-card" aria-labelledby="hours-title">
+            <span class="eyebrow">Sample opening hours</span>
+            <h3 id="hours-title">Weekend sipping</h3>
+            <dl class="hours">
+              <div><dt>Saturday</dt><dd>11:00 AM–4:00 PM</dd></div>
+              <div><dt>Sunday</dt><dd>12:00 PM–4:00 PM</dd></div>
+              <div><dt>Monday–Friday</dt><dd>Closed</dd></div>
+            </dl>
+            <p class="small-note"><strong>Example schedule only.</strong> These are local-time sample hours, not confirmed opening times. Replace before publishing.</p>
+          </article>
+
+          <article class="card visit-card" aria-labelledby="location-title">
+            <span class="eyebrow">Sample neighborhood location</span>
+            <h3 id="location-title">Your sunny little corner</h3>
+            <address>
+              <strong>Maple &amp; Oak neighborhood</strong>
+              Corner of Maple Street and Oak Avenue<br>
+              Beside the community garden
+            </address>
+            <p class="small-note"><strong>Illustrative location only.</strong> This is not a verified address or directions. Replace with the actual neighborhood, street address, and town before publishing.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>Sunny Sips Lemonade</strong>
+        <p>A little stand. A bright spot in the neighborhood.</p>
+        <p>Preview website · Prices, hours, and location are sample details.</p>
+      </div>
+      <a href="#top">Back to the sunshine <span aria-hidden="true">↑</span></a>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      if (!window.matchMedia) return;
+      var motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+      function updateScrolling() {
+        document.documentElement.style.scrollBehavior = motionPreference.matches ? "auto" : "smooth";
+      }
+      updateScrolling();
+      if (motionPreference.addEventListener) {
+        motionPreference.addEventListener("change", updateScrolling);
+      } else if (motionPreference.addListener) {
+        motionPreference.addListener(updateScrolling);
+      }
+    }());
+  </script>
+</body>
+</html>
